@@ -109,28 +109,15 @@ public class MyArray implements ArrayMethods {
     @Override
     public void sort(boolean asc) {
         int temp, i, j;
-        if (asc=true) {
-            for (i=0; i<arr.length-1; i++) {
-                for (j=0; j<arr.length-1-i; j++) {
-                    if (arr[j]>arr[j+1]) {
-                        temp=arr[j];
-                        arr[j]=arr[j+1];
-                        arr[j+1]=temp;
-                    }
+        for (i=0; i<arr.length-1; i++) {
+            for (j=0; j<arr.length-1-i; j++) {
+                if ((asc=true && arr[j]>arr[j+1]) || (asc=false && arr[j]<arr[j+1])) {
+                    temp=arr[j];
+                    arr[j]=arr[j+1];
+                    arr[j+1]=temp;
                 }
             }
-        } /*else {
-            for (i=0; i<arr.length-1; i++) {
-                for (j=0; j<arr.length-1-i; j++) {
-                    if (arr[j]>arr[j+1]) {
-                        temp=arr[j];
-                        arr[j]=arr[j+1];
-                        arr[j+1]=temp;
-                    }
-                }
-            }
-        }*/
-        for (i=0; i<arr.length; i++) System.out.print(arr[i]+" ");
+        }
     }
 
     @Override
@@ -139,11 +126,13 @@ public class MyArray implements ArrayMethods {
 
     @Override
     public void addItem(int newValue, int position) {
+        if (position<0) return;
+        if (position>=0) addItem(newValue);
     }
 
     @Override
     public int[] copy() {
-        return new int[0];
+        return arr.clone();
     }
 
     @Override
@@ -151,8 +140,41 @@ public class MyArray implements ArrayMethods {
         return 0;
     }
 
-    @Override
+    /*@Override
     public String toString() {
-        return "";
+        String txt="";
+        for (int value:arr) txt=value+" ";
+        return txt;
+    }*/
+
+    public String stringSum(String a, String b) {
+        String sum="", newA="", newB="";
+        int i;
+        for (i=a.length(); i>0; i--) {
+            newA=newA+a.charAt(i);
+        }
+        for (i=b.length(); i>0; i--) {
+            newB=newB+b.charAt(i);
+        }
+        return sum;
+    }
+
+    public void reverse() {
+        for (int i=1; i<size; i++) {
+            int temp=arr[i];
+            arr[i]=arr[size-1-i];
+            arr[size-1-i]=temp;
+        }
+    }
+
+    public void randomize() {
+        Random rnd=new Random();
+        for (int i=0; i<size; i++) {
+            int index1=rnd.nextInt(size);
+            int index2=rnd.nextInt(size);
+            int temp=arr[index1];
+            arr[index1]=arr[index2];
+            arr[index2]=temp;
+        }
     }
 }
